@@ -69,7 +69,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
  * )
  *
  */
-class RulesRequesAction extends RulesActionBase implements ContainerFactoryPluginInterface {
+class RulesRequestAction extends RulesActionBase implements ContainerFactoryPluginInterface {
 
 
 }
