@@ -11,7 +11,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
  * @RulesAction(
  *   id = "RulesRequestAction",
  *   label = @Translation("HTTP Request for rules action"),
- *   category = @Translation("Données"),
+ *   category = @Translation("Data"),
  *   context = {
  *     "url" = @ContextDefinition("string",
  *       label = @Translation("URL"),

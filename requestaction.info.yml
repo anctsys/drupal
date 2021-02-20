@@ -3,7 +3,7 @@ description: Creates request action for rules.
 package: Rules
 type: module
 # core: 8.x
-version: 0.5
+version: 0.6
 core: 8.x
 dependencies:
   - drupal:rules
