@@ -71,5 +71,16 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
  */
 class RulesRequestAction extends RulesActionBase implements ContainerFactoryPluginInterface {
 
+  /**
+   * Executes the Plugin.
+   *
+   * @param mixed $data
+   *   Original value of an element which is being updated.
+   * @param mixed $value
+   *   A new value which is being set to an element identified by data selector.
+   */
+  protected function doExecute($url, $linkurl) {
+
+  }
 
 }
