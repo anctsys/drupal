@@ -1,0 +1,7 @@
+hello.content:
+  path: '/requestaction'
+  defaults:
+    _controller: '\Drupal\requestaction\Controller\RequestactionController::content'
+    _title: 'Http Request for Rules Action'
+  requirements:
+    _permission: 'access content'

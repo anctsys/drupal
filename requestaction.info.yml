@@ -1,0 +1,6 @@
+name: Request Action For Rules Module
+description: Creates request action for rules.
+package: Custom
+type: module
+version: 0.1
+core: 8.x
