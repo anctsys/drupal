@@ -1,6 +1,0 @@
-hello.admin:
-  title: 'Requesaction module settings'
-  description: 'Admin settings page link'
-  parent: system.admin_config_development
-  route_name: requestaction.content
-  weight: 100
