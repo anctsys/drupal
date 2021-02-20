@@ -1,6 +1,9 @@
 name: Request Action For Rules Module
 description: Creates request action for rules.
-package: Custom
+package: Rules
 type: module
+# core: 8.x
 version: 0.1
 core: 8.x
+dependencies:
+  - drupal:rules
