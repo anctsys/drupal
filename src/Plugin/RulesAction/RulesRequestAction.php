@@ -9,7 +9,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
  * Provides "Rules RequestAction" rules action.
  *
  * @RulesAction(
- *   id = "RulesRequestAction",
+ *   id = "requestaction",
  *   label = @Translation("HTTP Request for rules action"),
  *   category = @Translation("Data"),
  *   context = {
@@ -69,7 +69,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
  * )
  *
  */
-class RulesRequestAction extends RulesActionBase{
+class RulesRequestAction extends RulesActionBase implements ContainerFactoryPluginInterface {
 
   /**
    * Executes the Plugin.
