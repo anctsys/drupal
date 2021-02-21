@@ -4,6 +4,7 @@ namespace Drupal\rules_http_request\Plugin\RulesAction;
 use Drupal\rules\Core\RulesActionBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides "Rules RequestAction" rules action.
@@ -72,15 +73,120 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPluginInterface {
 
   /**
-   * Executes the Plugin.
+   * The logger for the rules channel.
    *
-   * @param mixed $data
-   *   Original value of an element which is being updated.
-   * @param mixed $value
-   *   A new value which is being set to an element identified by data selector.
+   * @var \Psr\Log\LoggerInterface
    */
-  protected function doExecute($url, $linkurl) {
+  protected $logger;
 
+  /**
+   * The HTTP client to fetch the feed data with.
+   *
+   * @var \GuzzleHttp\ClientInterface
+   */
+  protected $httpClient;
+
+  /**
+   * Constructs a httpClient object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin ID for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
+   *   The logger factory service.
+   * @param GuzzleHttp\ClientInterface $http_client
+   *   The guzzle http client instance.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerChannelFactoryInterface $logger_factory, ClientInterface $http_client) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->logger = $logger_factory->get('rules_api_post');
+    $this->http_client = $http_client;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('logger.factory'),
+      $container->get('http_client')
+    );
+  }
+
+
+  /**
+   * Set up form variables
+   *
+   * @param string[] $url
+   *   Url addresses HTTP request.
+   * @param string[] $linkurl
+   *   Link Url addresse for service
+   * @param string[] $nodetype
+   *   (optional) The Node Type for API call
+   * @param string[] $apiuser
+   *   (optional) The User Name for API call
+   * @param string[] $apipass
+   *   (optional) The User Passord for API call
+   * @param string[] $apitoken
+   *   (optional) The Session Token for API call
+   * @param string[] $content_author
+   *   (optional) A custom field, Content Author
+   * @param string[] $post_title
+   *   (optional) A passthrough for content titles.
+   * @param string[] $post_body
+   *   (optional) A passthrough for content titles.
+   */
+
+//protected function doExecute () {
+protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $content_author, $post_title, $post_body ) {
+  // Debug message
+  drupal_set_message(t("Activating Rules API POST ..."), 'status');
+
+  $serialized_entity = json_encode([
+    'title' => [['value' => $post_title]],
+    'type' => [['target_id' => $nodetype ]],
+    'body' => [['value' => $post_body, 'format' => 'full_html']],
+     // Set the value of a custom field
+    'field_content_author' => [['value' => $content_author ]],
+    '_links' => ['type' => [
+          'href' => $linkurl[0]
+    ]],
+  ]) ;
+
+  $client = \Drupal::httpClient();
+  $url =$url[0];
+  $method = 'POST';
+  $options = [
+    'auth' => [
+      $apiuser,
+      $apipass
+    ],
+  'timeout' => '2',
+  'body' => $serialized_entity,
+  'headers' => [
+  'Content-Type' => 'application/hal+json',
+  'Accept' => 'application/hal+json',
+  'X-CSRF-Token' => $apitoken
+      ],
+  ];
+  try {
+    $code=200
+    /*$response = $client->request($method, $url, $options);
+    $code = $response->getStatusCode();
+    if ($code == 200) {
+      $body = $response->getBody()->getContents();
+      return $body;
+    }*/
+  }
+  catch (RequestException $e) {
+    watchdog_exception('rules_api_post', $e);
+  }
+ }
 
 }
