@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.api_post
+    - node.type.request_api
   module:
     - path
     - text
-id: node.api_post.default
+id: node.request_api.default
 targetEntityType: node
-bundle: api_post
+bundle: request_api
 mode: default
 content:
   body:
@@ -79,4 +79,3 @@ content:
     region: content
     third_party_settings: {  }
 hidden: {  }
-

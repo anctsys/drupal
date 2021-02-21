@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.api_post
-    - field.field.node.api_post.body
-    - field.field.node.api_post.field_content_author
+    - node.type.request_api
+    - field.field.node.request_api.body
+    - field.field.node.request_api.field_content_author
   module:
     - text
     - user
-id: node.api_post.default
+id: node.request_api.default
 targetEntityType: node
-bundle: api_post
+bundle: request_api
 mode: default
 content:
   body:
@@ -34,4 +34,3 @@ content:
     third_party_settings: {  }
     region: content
 hidden: {  }
-
