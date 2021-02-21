@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\requestaction\Plugin\RulesAction;
+namespace Drupal\rules_http_request\Plugin\RulesAction;
 use Drupal\rules\Core\RulesActionBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -9,7 +9,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
  * Provides "Rules RequestAction" rules action.
  *
  * @RulesAction(
- *   id = "requestaction",
+ *   id = "RulesHttpRequest",
  *   label = @Translation("HTTP Request for rules action"),
  *   category = @Translation("Data"),
  *   context = {
@@ -69,7 +69,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
  * )
  *
  */
-class RulesRequestAction extends RulesActionBase implements ContainerFactoryPluginInterface {
+class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPluginInterface {
 
   /**
    * Executes the Plugin.
