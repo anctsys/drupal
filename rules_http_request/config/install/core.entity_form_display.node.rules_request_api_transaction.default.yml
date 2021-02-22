@@ -1,19 +1,19 @@
-# core.entity_form_display.node.rules_api_post_transaction.default
+# core.entity_form_display.node.rules_request_api_transaction.default
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.rules_api_post_transaction.body
-    - field.field.node.rules_api_post_transaction.field_content_author
-    - node.type.rules_api_post_transaction
+    - field.field.node.rules_request_api_transaction.body
+    - field.field.node.rules_request_api_transaction.field_content_author
+    - node.type.rules_request_api_transaction
   module:
     - path
     - text
 _core:
   default_config_hash: v9Uy7UTrqT95KUyfJT4HdzSWe5K_THDo9nI6EGpemj8
-id: node.rules_api_post_transaction.default
+id: node.rules_request_api_transaction.default
 targetEntityType: node
-bundle: rules_api_post_transaction
+bundle: rules_request_api_transaction
 mode: default
 content:
   body:

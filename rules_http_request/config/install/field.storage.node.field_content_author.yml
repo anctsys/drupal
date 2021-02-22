@@ -3,10 +3,10 @@ status: true
 dependencies:
   module:
     - node
-    - rules_api_post
+    - rules_request_api
   enforced:
     module:
-      - rules_api_post # enforced removes content type on module uninstall
+      - rules_request_api # enforced removes content type on module uninstall
 id: node.field_content_author
 field_name: field_content_author
 entity_type: node
