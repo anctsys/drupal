@@ -64,6 +64,11 @@ use GuzzleHttp\Exception\RequestException;
  *       description = @Translation("A pass through for our content body."),
  *       required = FALSE,
  *      ),
+ *     "node_body" = @ContextDefinition("entity:node",
+ *       label = @Translation("Node Content"),
+ *       description = @Translation("Pass node content entity"),
+ *       required = FALSE,
+ *      ),
  *   },
  *   provides = {
  *     "http_response" = @ContextDefinition("string",
