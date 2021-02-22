@@ -1,16 +1,16 @@
-# field.field.node.api_post.body.yml
+# field.field.node.http_request.body.yml
 langcode: en
 status: true
 dependencies:
     config:
         - field.storage.node.body
-        - node.type.api_post
+        - node.type.http_request
     module:
         - text
-id: node.api_post.body
+id: node.http_request.body
 field_name: body
 entity_type: node
-bundle: api_post
+bundle: http_request
 label: Body
 description: 'Details for this transaction.'
 required: false

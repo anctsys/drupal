@@ -73,7 +73,7 @@ use GuzzleHttp\Exception\RequestException;
  * )
  *
  */
-class RulesAPI_POST extends RulesActionBase implements ContainerFactoryPluginInterface {
+class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPluginInterface {
 
   /**
    * The logger for the rules channel.

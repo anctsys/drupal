@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - node.type.api_post
-    - field.field.node.api_post.body
-    - field.field.node.api_post.field_content_author
+    - node.type.http_request
+    - field.field.node.http_request.body
+    - field.field.node.http_request.field_content_author
   module:
     - text
     - user
-id: node.api_post.default
+id: node.http_request.default
 targetEntityType: node
-bundle: api_post
+bundle: http_request
 mode: default
 content:
   body:

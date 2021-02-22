@@ -12,7 +12,7 @@ third_party_settings:
       - main
     parent: 'main:'
 name: 'API POST'
-type: api_post
+type: http_request
 description: 'Content type (form) for sending <b>API Post Transactions</b>'
 help: ''
 new_revision: false
