@@ -157,12 +157,12 @@ protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
-/*Il y a un probleme ici
+
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
 
-$node = Node::load(499);
-//$data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
+//$node = Node::load(499); Il y a un probleme ici
+$data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 
 
 $serialized_entity = json_encode([
