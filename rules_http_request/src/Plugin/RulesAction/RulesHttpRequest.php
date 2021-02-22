@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\rules_api_post\Plugin\RulesAction;
+namespace Drupal\rules_http_request\Plugin\RulesAction;
 
 use Drupal\rules\Core\RulesActionBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
@@ -13,8 +13,8 @@ use GuzzleHttp\Exception\RequestException;
  * Provides "Rules API Post" rules action.
  *
  * @RulesAction(
- *   id = "RulesAPI_POST",
- *   label = @Translation("API POST"),
+ *   id = "RulesHttpRequest",
+ *   label = @Translation("Rules HTTP Request"),
  *   category = @Translation("Data"),
  *   context = {
  *     "url" = @ContextDefinition("string",
@@ -105,7 +105,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerChannelFactoryInterface $logger_factory, ClientInterface $http_client) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->logger = $logger_factory->get('rules_api_post');
+    $this->logger = $logger_factory->get('rules_http_request');
     $this->http_client = $http_client;
   }
 
@@ -186,7 +186,7 @@ try {
   }
 }
 catch (RequestException $e) {
-  watchdog_exception('rules_api_post', $e);
+  watchdog_exception('rules_http_request', $e);
   }
  }
 }
