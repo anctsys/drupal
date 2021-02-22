@@ -153,7 +153,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    */
 
 //protected function doExecute () {
-protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $content_author, $post_title, $post_body /*,$node_body*/) {
+protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $content_author, $post_title, $post_body ,$node_body) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 /*
