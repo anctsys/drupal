@@ -1,19 +1,19 @@
-# core.entity_form_display.node.rules_request_http_transaction.default
+# core.entity_form_display.node.rules_http_request_transaction.default
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.rules_request_http_transaction.body
-    - field.field.node.rules_request_http_transaction.field_content_author
-    - node.type.rules_request_http_transaction
+    - field.field.node.rules_http_request_transaction.body
+    - field.field.node.rules_http_request_transaction.field_content_author
+    - node.type.rules_http_request_transaction
   module:
     - path
     - text
 _core:
   default_config_hash: v9Uy7UTrqT95KUyfJT4HdzSWe5K_THDo9nI6EGpemj8
-id: node.rules_request_http_transaction.default
+id: node.rules_http_request_transaction.default
 targetEntityType: node
-bundle: rules_request_http_transaction
+bundle: rules_http_request_transaction
 mode: default
 content:
   body:
