@@ -1,0 +1,16 @@
+# Rules API Post Module.
+name: Rules API Post
+description: Provides a helper action to POST to APIs
+package: Rules
+
+type: module
+# core: 8.x
+
+dependencies:
+  - drupal:rules
+
+# Information added by Drupal.org packaging script on 2019-03-04
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'rules_api_post'
+datestamp: 1551715713
