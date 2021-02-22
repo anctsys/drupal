@@ -157,9 +157,11 @@ protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
+/*Il y a un probleme ici
 $serializer = \Drupal::service('serializer');
 $node = Node::load(2);
 $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
+*/
 
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
