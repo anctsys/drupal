@@ -148,12 +148,18 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *   (optional) A passthrough for content titles.
    * @param string[] $post_body
    *   (optional) A passthrough for content titles.
+   * @param  $node_body
+   *   (optional) A passthrough the node content.
    */
 
 //protected function doExecute () {
-protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $content_author, $post_title, $post_body ) {
+protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $content_author, $post_title, $post_body ,$node_body) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
+
+$serializer = \Drupal::service('serializer');
+$node = Node::load(2);
+$data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
@@ -176,6 +182,7 @@ $options = [
   ],
 'timeout' => '2',
 'body' => $serialized_entity,
+'node' => $data
 'headers' => [
 'Content-Type' => 'application/hal+json',
 'Accept' => 'application/hal+json',
