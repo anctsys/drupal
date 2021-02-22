@@ -5,7 +5,7 @@ dependencies:
     - menu_ui
   enforced:
     module:
-      - rules_request_api # enforced removes content type on module uninstall
+      - rules_request_http # enforced removes content type on module uninstall
 third_party_settings:
   menu_ui:
     available_menus:

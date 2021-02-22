@@ -1,19 +1,19 @@
-# core.entity_view_display.node.rules_request_api_transaction.default.yml
+# core.entity_view_display.node.rules_request_http_transaction.default.yml
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.rules_request_api_transaction.body
-    - field.field.node.rules_request_api_transaction.field_content_author
-    - node.type.rules_request_api_transaction
+    - field.field.node.rules_request_http_transaction.body
+    - field.field.node.rules_request_http_transaction.field_content_author
+    - node.type.rules_request_http_transaction
   module:
     - text
     - user
 _core:
   default_config_hash: 6BCoFidP4LaPex5pNeJJK6YaDTmR5t_uqj9BGF2c6qM
-id: node.rules_request_api_transaction.default
+id: node.rules_request_http_transaction.default
 targetEntityType: node
-bundle: rules_request_api_transaction
+bundle: rules_request_http_transaction
 mode: default
 content:
   body:
