@@ -4,6 +4,7 @@ dependencies:
   config:
     - node.type.http_request
     - field.field.node.http_request.body
+    - field.field.node.http_request.field_content_author
   module:
     - text
     - user
@@ -19,9 +20,18 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  field_content_author:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
     region: content
 hidden: {  }
+
