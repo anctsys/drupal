@@ -23,12 +23,6 @@ use GuzzleHttp\Exception\RequestException;
  *       multiple = TRUE,
  *       required = TRUE,
  *     ),
- *     "linkurl" = @ContextDefinition("string",
- *       label = @Translation("Link URL"),
- *       description = @Translation("The service URL.<br> <b>Example:</b> https://example.com/rest/type/node/article "),
- *       multiple = TRUE,
- *       required = TRUE,
- *     ),
  *     "nodetype" = @ContextDefinition("string",
  *       label = @Translation("Node Type"),
  *       description = @Translation("This holds a value for the content type the API is expecting."),
@@ -127,8 +121,6 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *
    * @param string[] $url
    *   Url addresses HTTP request.
-   * @param string[] $linkurl
-   *   Link Url addresse for service
    * @param string[] $nodetype
    *   (optional) The Node Type for API call
    * @param string[] $apiuser
@@ -146,7 +138,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    */
 
 //protected function doExecute () {
-protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $post_title, $post_body ,$node_body) {
+protected function doExecute(array $url,$nodetype, $apiuser, $apipass, $apitoken, $post_title, $post_body ,$node_body) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
@@ -166,10 +158,6 @@ $serialized_entity = json_encode([
   'type' => [['target_id' => $nodetype ]],
   'body' => [['value' => $post_body, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
-   // Set the value of a custom field
-  '_links' => ['type' => [
-        'href' => $linkurl[0]
-  ]],
 ]) ;
 
 $client = \Drupal::httpClient();
