@@ -163,8 +163,8 @@ $serializer = \Drupal::service('serializer');
 $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 
 //Message d'erreur
-$messenger = \Drupal::messenger();
-$messenger->addMessage('STUFF', $messenger::TYPE_WARNING);
+//$messenger = \Drupal::messenger();
+//$messenger->addMessage('STUFF', $messenger::TYPE_WARNING);
 
 
 
