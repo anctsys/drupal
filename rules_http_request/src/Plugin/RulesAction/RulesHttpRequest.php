@@ -160,8 +160,6 @@ drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
-
-//$node = Node::load(499); Il y a un probleme ici
 $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 
 
@@ -170,7 +168,6 @@ $serialized_entity = json_encode([
   'type' => [['target_id' => $nodetype ]],
   'body' => [['value' => $post_body, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
-  'jsonnode2' => [['nodevalue' => $node_body]],
    // Set the value of a custom field
   'field_content_author' => [['value' => $content_author ]],
   '_links' => ['type' => [
