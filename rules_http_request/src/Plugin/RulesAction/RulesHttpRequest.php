@@ -23,12 +23,6 @@ use GuzzleHttp\Exception\RequestException;
  *       multiple = TRUE,
  *       required = TRUE,
  *     ),
- *     "linkurl" = @ContextDefinition("string",
- *       label = @Translation("Link URL"),
- *       description = @Translation("The service URL.<br> <b>Example:</b> https://example.com/rest/type/node/article "),
- *       multiple = TRUE,
- *       required = TRUE,
- *     ),
  *     "nodetype" = @ContextDefinition("string",
  *       label = @Translation("Node Type"),
  *       description = @Translation("This holds a value for the content type the API is expecting."),
@@ -49,20 +43,16 @@ use GuzzleHttp\Exception\RequestException;
  *       description = @Translation("Session Token for API Access"),
  *       required = FALSE,
  *      ),
- *     "content_author" = @ContextDefinition("string",
- *       label = @Translation("Content Author"),
- *       description = @Translation("This custom field field_content_author Content Author"),
- *       required = FALSE,
- *      ),
  *     "post_title" = @ContextDefinition("string",
  *       label = @Translation("Post Title"),
  *       description = @Translation("A pass through for our content titles."),
  *       required = FALSE,
  *      ),
- *     "post_body" = @ContextDefinition("string",
- *       label = @Translation("Post Body"),
- *       description = @Translation("A pass through for our content body."),
+ *     "extra_data" = @ContextDefinition("string",
+ *       label = @Translation("Extra data to pass"),
+ *       description = @Translation("Extra data to pass to the api"),
  *       required = FALSE,
+ *       multiple = TRUE,
  *      ),
  *     "node_body" = @ContextDefinition("entity:node",
  *       label = @Translation("Node Content"),
@@ -132,8 +122,6 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *
    * @param string[] $url
    *   Url addresses HTTP request.
-   * @param string[] $linkurl
-   *   Link Url addresse for service
    * @param string[] $nodetype
    *   (optional) The Node Type for API call
    * @param string[] $apiuser
@@ -142,18 +130,16 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *   (optional) The User Passord for API call
    * @param string[] $apitoken
    *   (optional) The Session Token for API call
-   * @param string[] $content_author
-   *   (optional) A custom field, Content Author
    * @param string[] $post_title
    *   (optional) A passthrough for content titles.
-   * @param string[] $post_body
-   *   (optional) A passthrough for content titles.
+   * @param string[] $extra_data
+   *   (optional) A passthrough for extra data.
    * @param  $node_body
    *   (optional) A passthrough the node content.
    */
 
 //protected function doExecute () {
-protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $content_author, $post_title, $post_body ,$node_body) {
+protected function doExecute(array $url, $nodetype, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
@@ -166,13 +152,10 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
   'type' => [['target_id' => $nodetype ]],
-  'body' => [['value' => $post_body, 'format' => 'full_html']],
+  'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
    // Set the value of a custom field
   'field_content_author' => [['value' => $content_author ]],
-  '_links' => ['type' => [
-        'href' => $linkurl[0]
-  ]],
 ]) ;
 
 $client = \Drupal::httpClient();
