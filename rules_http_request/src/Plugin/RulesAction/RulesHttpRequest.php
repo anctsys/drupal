@@ -202,7 +202,7 @@ try {
   $code = $response->getStatusCode();
   if ($code == 200) {
     $body = $response->getBody()->getContents();
-    //$messenger->addMessage($body, $messenger::TYPE_WARNING);
+    $messenger->addMessage($body, $messenger::TYPE_WARNING);
     return $body;
   }
 }
