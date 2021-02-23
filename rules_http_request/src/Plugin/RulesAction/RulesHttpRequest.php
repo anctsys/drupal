@@ -23,10 +23,10 @@ use GuzzleHttp\Exception\RequestException;
  *       multiple = TRUE,
  *       required = TRUE,
  *     ),
- *     "nodetype" = @ContextDefinition("string",
- *       label = @Translation("Node Type"),
- *       description = @Translation("This holds a value for the content type the API is expecting."),
- *       required = FALSE,
+ *     "methode" = @ContextDefinition("string",
+ *       label = @Translation("Request method"),
+ *       description = @Translation("Request method POST,PUT,GET..."),
+ *       required = TRUE,
  *      ),
  *     "apiuser" = @ContextDefinition("string",
  *       label = @Translation("API User Name"),
@@ -49,8 +49,8 @@ use GuzzleHttp\Exception\RequestException;
  *       required = FALSE,
  *      ),
  *     "extra_data" = @ContextDefinition("string",
- *       label = @Translation("Post Body"),
- *       description = @Translation("A pass through for our content body."),
+ *       label = @Translation("Extra data to send to api"),
+ *       description = @Translation("A pass through for our content extra data field."),
  *       required = FALSE,
  *      ),
  *     "node_body" = @ContextDefinition("entity:node",
@@ -121,8 +121,8 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *
    * @param string[] $url
    *   Url addresses HTTP request.
-   * @param string[] $nodetype
-   *   (optional) The Node Type for API call
+   * @param string[] $methode
+   *   (optional) Request method to call API
    * @param string[] $apiuser
    *   (optional) The User Name for API call
    * @param string[] $apipass
@@ -138,7 +138,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    */
 
 //protected function doExecute () {
-protected function doExecute(array $url,$nodetype, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body) {
+protected function doExecute(array $url,$methode, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
@@ -155,14 +155,13 @@ $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
-  'type' => [['target_id' => $nodetype ]],
-  'body' => [['value' => $extra_data, 'format' => 'full_html']],
+  'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
 ]) ;
 
 $client = \Drupal::httpClient();
 $url =$url[0];
-$method = 'POST';
+//$method = 'POST';
 $options = [
   'auth' => [
     $apiuser,
