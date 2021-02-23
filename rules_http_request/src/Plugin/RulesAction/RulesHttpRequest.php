@@ -48,7 +48,7 @@ use GuzzleHttp\Exception\RequestException;
  *       description = @Translation("A pass through for our content titles."),
  *       required = FALSE,
  *      ),
- *     "post_body" = @ContextDefinition("string",
+ *     "extra_data" = @ContextDefinition("string",
  *       label = @Translation("Post Body"),
  *       description = @Translation("A pass through for our content body."),
  *       required = FALSE,
@@ -131,14 +131,14 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *   (optional) The Session Token for API call
    * @param string[] $post_title
    *   (optional) A passthrough for content titles.
-   * @param string[] $post_body
+   * @param string[] $extra_data
    *   (optional) A passthrough for content titles.
    * @param  $node_body
    *   (optional) A passthrough the node content.
    */
 
 //protected function doExecute () {
-protected function doExecute(array $url,$nodetype, $apiuser, $apipass, $apitoken, $post_title, $post_body ,$node_body) {
+protected function doExecute(array $url,$nodetype, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
@@ -156,7 +156,7 @@ $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
   'type' => [['target_id' => $nodetype ]],
-  'body' => [['value' => $post_body, 'format' => 'full_html']],
+  'body' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
 ]) ;
 
