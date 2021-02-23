@@ -1,6 +1,6 @@
 # Rules API Post Module.
 name: Rules Http Request
-description: Provides a helper action to call http request to APIs
+description: Provides a helper action to call http request
 package: Rules
 
 type: module

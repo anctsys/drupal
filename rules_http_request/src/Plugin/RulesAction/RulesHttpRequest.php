@@ -160,9 +160,12 @@ drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
-
-//$node = Node::load(499); Il y a un probleme ici
 $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
+
+//Message d'erreur
+$messenger = \Drupal::messenger();
+$messenger->addMessage('STUFF', $messenger::TYPE_WARNING);
+
 
 
 $serialized_entity = json_encode([
@@ -199,6 +202,7 @@ try {
   $code = $response->getStatusCode();
   if ($code == 200) {
     $body = $response->getBody()->getContents();
+    $messenger->addMessage($body, $messenger::TYPE_WARNING);
     return $body;
   }
 }
