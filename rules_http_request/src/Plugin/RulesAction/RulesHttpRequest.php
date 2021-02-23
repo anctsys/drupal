@@ -153,7 +153,7 @@ $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
   'type' => [['target_id' => $nodetype ]],
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
-  'jsonnode' => [['nodevalue' => $data]],
+  'jsonnode' => [['nodevalue' => $data]]
    // Set the value of a custom field
   //'field_content_author' => [['value' => $content_author ]],
 ]) ;
