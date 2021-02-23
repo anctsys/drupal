@@ -155,7 +155,7 @@ $serialized_entity = json_encode([
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
    // Set the value of a custom field
-  'field_content_author' => [['value' => $content_author ]],
+  //'field_content_author' => [['value' => $content_author ]],
 ]) ;
 
 $client = \Drupal::httpClient();
