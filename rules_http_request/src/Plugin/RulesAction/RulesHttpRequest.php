@@ -49,11 +49,6 @@ use GuzzleHttp\Exception\RequestException;
  *       description = @Translation("Session Token for API Access"),
  *       required = FALSE,
  *      ),
- *     "content_author" = @ContextDefinition("string",
- *       label = @Translation("Content Author"),
- *       description = @Translation("This custom field field_content_author Content Author"),
- *       required = FALSE,
- *      ),
  *     "post_title" = @ContextDefinition("string",
  *       label = @Translation("Post Title"),
  *       description = @Translation("A pass through for our content titles."),
@@ -142,8 +137,6 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *   (optional) The User Passord for API call
    * @param string[] $apitoken
    *   (optional) The Session Token for API call
-   * @param string[] $content_author
-   *   (optional) A custom field, Content Author
    * @param string[] $post_title
    *   (optional) A passthrough for content titles.
    * @param string[] $post_body
@@ -153,7 +146,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    */
 
 //protected function doExecute () {
-protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $content_author, $post_title, $post_body ,$node_body) {
+protected function doExecute(array $url, $linkurl, $nodetype, $apiuser, $apipass, $apitoken, $post_title, $post_body ,$node_body) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
@@ -164,7 +157,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 
 //Message d'erreur
 $messenger = \Drupal::messenger();
-$messenger->addMessage('STUFF', $messenger::TYPE_WARNING);
+$messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
 
 
@@ -174,7 +167,6 @@ $serialized_entity = json_encode([
   'body' => [['value' => $post_body, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
    // Set the value of a custom field
-  'field_content_author' => [['value' => $content_author ]],
   '_links' => ['type' => [
         'href' => $linkurl[0]
   ]],
