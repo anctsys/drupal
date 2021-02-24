@@ -160,7 +160,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
 protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
-
+//
 
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
