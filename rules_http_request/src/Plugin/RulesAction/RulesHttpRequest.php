@@ -172,7 +172,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 $messenger = \Drupal::messenger();
 $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
-$headers = explode("\r\n", $headers);
+//$headers = explode("\r\n", $headers);
 if (is_array($headers)) {
   foreach ($headers as $header) {
     if (!empty($header) && strpos($header, ':') !== FALSE) {
