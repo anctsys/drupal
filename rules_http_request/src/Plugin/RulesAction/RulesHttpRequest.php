@@ -162,7 +162,7 @@ protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $a
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
 //TODO Il faut tester si les valeurs passées en parametre sont non nulles. Sinon Crash
-
+$options = array()
 
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
@@ -179,13 +179,16 @@ $serialized_entity = json_encode([
   //'type' => [['target_id' => $typeofrequest ]],
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
-  'myheaders' => $headers,
 ]) ;
+
+//Populate heder
+
 
 $client = \Drupal::httpClient();
 //Récupération de la valeur contenue dans l'array = Normalement non nulle
 $url =$url[0];
 $method = 'POST';
+/*
 $options = [
   'auth' => [
     $apiuser,
@@ -200,6 +203,35 @@ $options = [
 'X-CSRF-Token' => $apitoken
     ],
 ];
+*/
+
+$headers = explode("\r\n", $headers);
+if (is_array($headers)) {
+  foreach ($headers as $header) {
+    if (!empty($header) && strpos($header, ':') !== FALSE) {
+      list($name, $value) = explode(':', $header, 2);
+      if (!empty($name)) {
+        $options['headers'][$name] = ltrim($value);
+      }
+    }
+  }
+}
+
+array_push($options,
+'auth' => [
+  $apiuser,
+  $apipass
+],
+'timeout' => '2',
+'body' => $serialized_entity,
+/*
+'headers' => [
+  'Content-Type' => 'application/hal+json',
+  'Accept' => 'application/hal+json',
+  'X-CSRF-Token' => $apitoken
+],*/
+);
+
 try {
   $response = $client->request($method, $url, $options);
   $code = $response->getStatusCode();
