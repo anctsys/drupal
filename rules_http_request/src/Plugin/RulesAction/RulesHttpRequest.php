@@ -219,15 +219,14 @@ $options = [
 ];
 */
 
-/*
+
 $options['auth'] = [
-  $apiuser,
-  $apipass,
+  $apiuser[0],
+  $apipass[0],
 ];
-*/
 $options['timeout']= '2';
 $options['body']= $serialized_entity;
-//$options['headers']['X-CSRF-Token'] =$apitoken;
+$options['headers']['X-CSRF-Token'] =$apitoken[0];
 
 
 try {
