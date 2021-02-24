@@ -172,7 +172,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 $messenger = \Drupal::messenger();
 $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
-//$headers = explode("\r\n", $headers);
+//Extraction des données du champs header pour ajouter à l'array option
 if (is_array($headers)) {
   foreach ($headers as $header) {
     if (!empty($header) && strpos($header, ':') !== FALSE) {
@@ -191,7 +191,7 @@ $serialized_entity = json_encode([
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
   //'myheaders' =>[['head'=>$headers]]
-  'headers_source'=>$options_temp["headers"],
+  'headers_source'=>$options["headers"],
   'headers_cible' => [
   'Content-Type' => 'application/hal+json',
   'Accept' => 'application/hal+json',
@@ -202,6 +202,7 @@ $serialized_entity = json_encode([
 $client = \Drupal::httpClient();
 $url =$url[0];
 $method = 'POST';
+/*
 $options = [
   'auth' => [
     $apiuser,
@@ -216,6 +217,17 @@ $options = [
 'X-CSRF-Token' => $apitoken
     ],
 ];
+*/
+
+$options['auth'] = [
+  $apiuser,
+  $apipass,
+];
+$options['timeout']= '2';
+$options['body']= $serialized_entity;
+$options['headers']['X-CSRF-Token'] =$apitoken;
+
+
 try {
   $response = $client->request($method, $url, $options);
   $code = $response->getStatusCode();
