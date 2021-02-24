@@ -172,6 +172,17 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 $messenger = \Drupal::messenger();
 $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
+$headers = explode("\r\n", $headers);
+if (is_array($headers)) {
+  foreach ($headers as $header) {
+    if (!empty($header) && strpos($header, ':') !== FALSE) {
+      list($name, $value) = explode(':', $header, 2);
+      if (!empty($name)) {
+        $options_temp['headers'][$name] = ltrim($value);
+      }
+    }
+  }
+}
 
 
 $serialized_entity = json_encode([
@@ -179,7 +190,8 @@ $serialized_entity = json_encode([
   //'type' => [['target_id' => $typeofrequest ]],
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
-  'myheaders' =>[['head'=>$headers]]
+  //'myheaders' =>[['head'=>$headers]]
+  'myheaders' => $options_temp,
 ]) ;
 
 $client = \Drupal::httpClient();
