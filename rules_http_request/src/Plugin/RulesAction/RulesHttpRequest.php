@@ -179,11 +179,10 @@ $serialized_entity = json_encode([
   //'type' => [['target_id' => $typeofrequest ]],
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
-  'myheaders' =>$headers,
+  'myheaders' =>[['head'=>$headers]]
 ]) ;
 
 $client = \Drupal::httpClient();
-//Récupération de la valeur contenue dans l'array = Normalement non nulle
 $url =$url[0];
 $method = 'POST';
 $options = [
