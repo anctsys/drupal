@@ -23,10 +23,10 @@ use GuzzleHttp\Exception\RequestException;
  *       multiple = TRUE,
  *       required = TRUE,
  *     ),
- *     "methode" = @ContextDefinition("string",
- *       label = @Translation("Type of request"),
- *       description = @Translation("This holds a value for the content type the API is expecting."),
- *       required = FALSE,
+ *     "method" = @ContextDefinition("string",
+ *       label = @Translation("Method"),
+ *       description = @Translation("The HTTP request methods like'HEAD','POST','PUT','DELETE','TRACE','OPTIONS','CONNECT','PATCH' etc."),
+ *       required = TRUE,
  *      ),
  *     "headers" = @ContextDefinition("string",
  *       label = @Translation("Headers"),
@@ -139,7 +139,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *
    * @param string[] $url
    *   Url addresses HTTP request.
-   * @param string[] $methode
+   * @param string[] $method
    *   (optional) The Node Type for API call
    * @param string[] $apiuser
    *   (optional) The User Name for API call
@@ -156,7 +156,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    */
 
 //TODO nodetype à remplacer methodetype (post etc)
-protected function doExecute(array $url,$methode,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
+protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
