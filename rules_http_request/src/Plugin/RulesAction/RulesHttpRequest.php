@@ -26,12 +26,12 @@ use GuzzleHttp\Exception\RequestException;
  *     "method" = @ContextDefinition("string",
  *       label = @Translation("Method"),
  *       description = @Translation("The HTTP request methods like'HEAD','POST','PUT','DELETE','TRACE','OPTIONS','CONNECT','PATCH' etc."),
- *       default_value = "GET",
  *       required = TRUE,
  *      ),
  *     "headers" = @ContextDefinition("string",
  *       label = @Translation("Headers"),
  *       description = @Translation("Request headers to send as 'name: value' pairs, one per line (e.g., Accept: text/plain). See <a href='https://www.wikipedia.org/wiki/List_of_HTTP_header_fields'>wikipedia.org/wiki/List_of_HTTP_header_fields</a> for more information."),
+ *       multiple = TRUE,
  *       required = FALSE,
  *      ),
  *     "apiuser" = @ContextDefinition("string",
@@ -169,7 +169,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //Message d'erreur
 $messenger = \Drupal::messenger();
 $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
-
+$messenger->addMessage('Headers', $headers::TYPE_WARNING);
 
 
 $serialized_entity = json_encode([
