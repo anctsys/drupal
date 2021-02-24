@@ -178,7 +178,7 @@ if (is_array($headers)) {
     if (!empty($header) && strpos($header, ':') !== FALSE) {
       list($name, $value) = explode(':', $header, 2);
       if (!empty($name)) {
-        $options_temp['headers'][$name] = ltrim($value);
+        $options['headers'][$name] = ltrim($value);
       }
     }
   }
