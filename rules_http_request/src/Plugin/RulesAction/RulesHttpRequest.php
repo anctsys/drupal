@@ -23,9 +23,14 @@ use GuzzleHttp\Exception\RequestException;
  *       multiple = TRUE,
  *       required = TRUE,
  *     ),
- *     "typeofrequest" = @ContextDefinition("string",
+ *     "methode" = @ContextDefinition("string",
  *       label = @Translation("Type of request"),
  *       description = @Translation("This holds a value for the content type the API is expecting."),
+ *       required = FALSE,
+ *      ),
+ *     "headers" = @ContextDefinition("string",
+ *       label = @Translation("Headers"),
+ *       description = @Translation("Request headers to send as 'name: value' pairs, one per line (e.g., Accept: text/plain). See <a href='https://www.wikipedia.org/wiki/List_of_HTTP_header_fields'>wikipedia.org/wiki/List_of_HTTP_header_fields</a> for more information."),
  *       required = FALSE,
  *      ),
  *     "apiuser" = @ContextDefinition("string",
@@ -58,6 +63,19 @@ use GuzzleHttp\Exception\RequestException;
  *       description = @Translation("Pass node content entity"),
  *       required = FALSE,
  *      ),
+ *     "max_redirects" = @ContextDefinition("integer",
+ *       label = @Translation("Max Redirect"),
+ *       description = @Translation("How many times a redirect may be followed."),
+ *       default_value = 3,
+ *       required = FALSE,
+ *       assignment_restriction = "input",
+ *     ),
+ *     "timeout" = @ContextDefinition("float",
+ *       label = @Translation("Timeout"),
+ *       description = @Translation("The maximum number of seconds the request may take.."),
+ *       default_value = 30,
+ *       required = FALSE,
+ *     ),
  *   },
  *   provides = {
  *     "http_response" = @ContextDefinition("string",
@@ -121,7 +139,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *
    * @param string[] $url
    *   Url addresses HTTP request.
-   * @param string[] $typeofrequest
+   * @param string[] $methode
    *   (optional) The Node Type for API call
    * @param string[] $apiuser
    *   (optional) The User Name for API call
@@ -138,7 +156,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    */
 
 //TODO nodetype à remplacer methodetype (post etc)
-protected function doExecute(array $url,$typeofrequest, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body) {
+protected function doExecute(array $url,$methode,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
@@ -162,7 +180,7 @@ $serialized_entity = json_encode([
 
 $client = \Drupal::httpClient();
 $url =$url[0];
-$method = 'POST';
+//$method = 'POST';
 $options = [
   'auth' => [
     $apiuser,
