@@ -169,7 +169,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //Message d'erreur
 $messenger = \Drupal::messenger();
 $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
-$messenger->addMessage('Headers', $headers::TYPE_WARNING);
+//$messenger->addMessage('Headers', $headers::TYPE_WARNING);
 
 
 $serialized_entity = json_encode([
