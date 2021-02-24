@@ -155,7 +155,7 @@ $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
-  'type' => [['target_id' => $nodetype ]],
+  //'type' => [['target_id' => $nodetype ]],
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
 ]) ;
