@@ -171,7 +171,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //Message d'erreur
 $messenger = \Drupal::messenger();
 $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
-$messenger->addMessage($headers, $messenger::TYPE_WARNING);
+
 
 
 $serialized_entity = json_encode([
@@ -179,6 +179,7 @@ $serialized_entity = json_encode([
   //'type' => [['target_id' => $typeofrequest ]],
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
+  'myheaders' =>[['head'=>$headers]],
 ]) ;
 
 $client = \Drupal::httpClient();
