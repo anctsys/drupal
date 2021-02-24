@@ -26,7 +26,6 @@ use GuzzleHttp\Exception\RequestException;
  *     "method" = @ContextDefinition("string",
  *       label = @Translation("Method"),
  *       description = @Translation("The HTTP request methods like'HEAD','POST','PUT','DELETE','TRACE','OPTIONS','CONNECT','PATCH' etc."),
- *       default_value = GET,
  *       required = TRUE,
  *      ),
  *     "headers" = @ContextDefinition("string",
@@ -140,7 +139,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *
    * @param string[] $url
    *   Url addresses HTTP request.
-   * @param string[] $method
+   * @param string[] $methode
    *   (optional) The Node Type for API call
    * @param string[] $apiuser
    *   (optional) The User Name for API call
@@ -160,7 +159,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
 protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
-//
+
 
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
@@ -181,7 +180,7 @@ $serialized_entity = json_encode([
 
 $client = \Drupal::httpClient();
 $url =$url[0];
-//$method = 'POST';
+$method = 'POST';
 $options = [
   'auth' => [
     $apiuser,
