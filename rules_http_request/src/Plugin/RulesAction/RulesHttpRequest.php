@@ -156,7 +156,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *   (optional) A passthrough the node content.
    */
 
-//TODO Remove title
+//TODO nodetype à remplacer methodetype (post etc)
 protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
@@ -169,13 +169,11 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //Message d'erreur
 $messenger = \Drupal::messenger();
 $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
-//$messenger->addMessage('Header value', $headers::TYPE_WARNING);
 
 
 
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
-  'fakeheader'=>[['fh'=>$headers]],
   //'type' => [['target_id' => $typeofrequest ]],
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
