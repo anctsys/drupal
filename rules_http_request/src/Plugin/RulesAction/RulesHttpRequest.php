@@ -192,6 +192,11 @@ $serialized_entity = json_encode([
   'jsonnode' => [['nodevalue' => $data]],
   //'myheaders' =>[['head'=>$headers]]
   'myheaders' => $options_temp,
+  'headers_cible' => [
+  'Content-Type' => 'application/hal+json',
+  'Accept' => 'application/hal+json',
+  'X-CSRF-Token' => $apitoken
+      ],
 ]) ;
 
 $client = \Drupal::httpClient();
