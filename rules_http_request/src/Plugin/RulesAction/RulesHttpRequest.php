@@ -26,11 +26,13 @@ use GuzzleHttp\Exception\RequestException;
  *     "method" = @ContextDefinition("string",
  *       label = @Translation("Method"),
  *       description = @Translation("The HTTP request methods like'HEAD','POST','PUT','DELETE','TRACE','OPTIONS','CONNECT','PATCH' etc."),
+ *       default_value = GET,
  *       required = TRUE,
  *      ),
  *     "headers" = @ContextDefinition("string",
  *       label = @Translation("Headers"),
  *       description = @Translation("Request headers to send as 'name: value' pairs, one per line (e.g., Accept: text/plain). See <a href='https://www.wikipedia.org/wiki/List_of_HTTP_header_fields'>wikipedia.org/wiki/List_of_HTTP_header_fields</a> for more information."),
+ *       multiple = TRUE,
  *       required = FALSE,
  *      ),
  *     "apiuser" = @ContextDefinition("string",
@@ -155,7 +157,7 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    *   (optional) A passthrough the node content.
    */
 
-//TODO nodetype à remplacer methodetype (post etc)
+//TODO Remove title
 protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
@@ -168,6 +170,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //Message d'erreur
 $messenger = \Drupal::messenger();
 $messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
+$messenger->addMessage('Header value', $headers::TYPE_WARNING);
 
 
 
