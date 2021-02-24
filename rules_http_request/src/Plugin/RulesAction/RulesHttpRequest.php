@@ -26,6 +26,7 @@ use GuzzleHttp\Exception\RequestException;
  *     "method" = @ContextDefinition("string",
  *       label = @Translation("Method"),
  *       description = @Translation("The HTTP request methods like'HEAD','POST','PUT','DELETE','TRACE','OPTIONS','CONNECT','PATCH' etc."),
+ *       default_value = 'GET',
  *       required = TRUE,
  *      ),
  *     "headers" = @ContextDefinition("string",
