@@ -32,7 +32,6 @@ use GuzzleHttp\Exception\RequestException;
  *     "headers" = @ContextDefinition("string",
  *       label = @Translation("Headers"),
  *       description = @Translation("Request headers to send as 'name: value' pairs, one per line (e.g., Accept: text/plain). See <a href='https://www.wikipedia.org/wiki/List_of_HTTP_header_fields'>wikipedia.org/wiki/List_of_HTTP_header_fields</a> for more information."),
- *       multiple = TRUE,
  *       required = FALSE,
  *      ),
  *     "apiuser" = @ContextDefinition("string",
