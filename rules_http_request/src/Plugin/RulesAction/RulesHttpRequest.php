@@ -191,7 +191,7 @@ $serialized_entity = json_encode([
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   'jsonnode' => [['nodevalue' => $data]],
   //'myheaders' =>[['head'=>$headers]]
-  $options_temp,
+  $options_temp[0],
   'headers_cible' => [
   'Content-Type' => 'application/hal+json',
   'Accept' => 'application/hal+json',
