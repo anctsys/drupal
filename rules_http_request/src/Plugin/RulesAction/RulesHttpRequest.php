@@ -183,7 +183,7 @@ if (is_array($headers)) {
     }
   }
 }
-
+$messenger->addMessage($options, $messenger::TYPE_WARNING);
 
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
@@ -201,7 +201,7 @@ $serialized_entity = json_encode([
 
 $client = \Drupal::httpClient();
 $url =$url[0];
-$method = 'POST';
+//$method = 'POST';
 /*
 $options = [
   'auth' => [
@@ -226,7 +226,7 @@ $options['auth'] = [
 ];
 $options['timeout']= '2';
 $options['body']= $serialized_entity;
-$options['headers']['X-CSRF-Token'] =$apitoken[0];
+$options['headers']['X-CSRF-Token'] = $apitoken[0];
 
 
 try {
