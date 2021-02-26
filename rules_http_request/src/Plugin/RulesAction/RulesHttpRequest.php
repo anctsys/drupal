@@ -155,8 +155,9 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
    * @param  $node_body
    *   (optional) A passthrough the node content.
    */
-
+//TODO Rajouter la gestion des parametres quand on en aura besoin : The request body, formatter as 'param=value&param=value&...'
 //TODO nodetype à remplacer methodetype (post etc)
+//TODO Pour configurer le client http : https://symfony.com/doc/current/http_client.html
 protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
@@ -177,6 +178,7 @@ $messenger = \Drupal::messenger();
 //Content-Type:application/json
 //Accept:application/json
 //X-CSRF-Token:QJiVCdcBzojqF9L-VG6vvQR9-8Wxa292fB7Z
+//TODO Pour configurer le client http : https://symfony.com/doc/current/http_client.html
 if (is_array($headers)) {
   foreach ($headers as $header) {
     if (!empty($header) && strpos($header, ':') !== FALSE) {
@@ -223,13 +225,20 @@ $options = [
 */
 
 //Non utilisé pour le moment
-/*
+
 $options['auth'] = [
   $apiuser[0],
   $apipass[0],
 ];
-*/
-$options['timeout']= '2';
+
+
+// Timeout.
+$options['timeout'] = empty($timeOut) ? 30 : $timeOut;
+//$options['timeout']= '2';
+
+// Max redirects.
+$options['max_redirects'] = empty($maxRedirect) ? 3 : $maxRedirect;
+
 
 //Formalisation de la matrice de diffusion
 if(!empty($serialized_entity)){
