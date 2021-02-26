@@ -168,7 +168,7 @@ drupal_set_message(t("Activating Rules API POST ..."), 'status');
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
 $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
-
+$data = $node_body
 
 //Message d'erreur
 $messenger = \Drupal::messenger();
