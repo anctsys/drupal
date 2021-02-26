@@ -184,6 +184,7 @@ if (is_array($headers)) {
   }
 }
 $messenger->addMessage(implode ( $options , "#" ), $messenger::TYPE_WARNING);
+$messenger->addMessage(implode ( $headers , "#" ), $messenger::TYPE_WARNING);
 
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],
