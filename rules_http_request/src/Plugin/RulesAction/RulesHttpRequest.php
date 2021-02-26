@@ -204,7 +204,7 @@ $serialized_entity = json_encode([
 
 $client = \Drupal::httpClient();
 $url =$url[0];
-$method = 'POST';
+//$method = 'POST';
 /*
 $options = [
   'auth' => [
@@ -236,9 +236,9 @@ $options['timeout']= '2';
   $options['body']= $serialized_entity;
 //}
 //Champ TOKEN de rules non nul alors modifier le champs header[token] de la matrice de diffusion
-//if(!empty($apitoken){
+if(!empty($apitoken){
   $options['headers']['X-CSRF-Token'] = $apitoken;
-//}
+}
 
 
 try {
