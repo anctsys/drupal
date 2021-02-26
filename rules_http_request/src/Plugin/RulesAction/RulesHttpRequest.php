@@ -196,7 +196,7 @@ if (is_array($headers)) {
 $serialized_entity = json_encode([
   'title' => [['value' => $post_title]],//Titre du contenu ou du node au choix
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']], //Donnes supplémentaires
-  'jsonnode' => [['nodevalue' => $data]], //Contenu du Node
+  'jsonnode' => [['nodevalue' => $data]] //Contenu du Node
 ]) ;
 
 $client = \Drupal::httpClient();
@@ -220,18 +220,20 @@ $options = [
 */
 
 //Non utilisé pour le moment
+/*
 $options['auth'] = [
   $apiuser[0],
   $apipass[0],
 ];
+*/
 $options['timeout']= '2';
 
 //Formalisation de la matrice de diffusion
-if(!empty ($serialized_entity){
+if(!empty($serialized_entity){
   $options['body']= $serialized_entity;
 }
 //Champ TOKEN de rules non nul alors modifier le champs header[token] de la matrice de diffusion
-if(!empty ($apitoken){
+if(!empty($apitoken){
   $options['headers']['X-CSRF-Token'] = $apitoken;
 }
 
