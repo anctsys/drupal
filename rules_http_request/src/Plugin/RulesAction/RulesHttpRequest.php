@@ -170,9 +170,13 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 
 //Message d'erreur
 $messenger = \Drupal::messenger();
-$messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
+//$messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
-//Extraction des données du champs header pour ajouter à l'array option
+//PREPARATION DU HEADER à partir des données du champ RULES -  Entêtes
+//Extraction des données du champs header pour ajouter à l'array option,dans rules un item par ligne voir ci-dessous
+//Content-Type:application/json
+//Accept:application/json
+//X-CSRF-Token:QJiVCdcBzojqF9L-VG6vvQR9-8Wxa292fB7Z
 if (is_array($headers)) {
   foreach ($headers as $header) {
     if (!empty($header) && strpos($header, ':') !== FALSE) {
@@ -183,21 +187,16 @@ if (is_array($headers)) {
     }
   }
 }
-$messenger->addMessage(implode ( $options , "#" ), $messenger::TYPE_WARNING);
-$messenger->addMessage(implode ( $headers , "#" ), $messenger::TYPE_WARNING);
 
+//For test only
+//$messenger->addMessage(implode ( $options , "#" ), $messenger::TYPE_WARNING);
+
+//PREPARATION DU BODY
+//Encodage json du BODY
 $serialized_entity = json_encode([
-  'title' => [['value' => $post_title]],
-  //'type' => [['target_id' => $typeofrequest ]],
-  'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
-  'jsonnode' => [['nodevalue' => $data]],
-  //'myheaders' =>[['head'=>$headers]]
-  'headers_source'=>$options["headers"],
-  'headers_cible' => [
-  'Content-Type' => 'application/hal+json',
-  'Accept' => 'application/hal+json',
-  'X-CSRF-Token' => $apitoken
-      ],
+  'title' => [['value' => $post_title]],//Titre du contenu ou du node au choix
+  'extra_data' => [['value' => $extra_data, 'format' => 'full_html']], //Donnes supplémentaires
+  'jsonnode' => [['nodevalue' => $data]], //Contenu du Node
 ]) ;
 
 $client = \Drupal::httpClient();
@@ -220,14 +219,21 @@ $options = [
 ];
 */
 
-
+//Non utilisé pour le moment
 $options['auth'] = [
   $apiuser[0],
   $apipass[0],
 ];
 $options['timeout']= '2';
-$options['body']= $serialized_entity;
-$options['headers']['X-CSRF-Token'] = $apitoken;
+
+//Formalisation de la matrice de diffusion
+if(!empty ($serialized_entity){
+  $options['body']= $serialized_entity;
+}
+//Champ TOKEN de rules non nul alors modifier le champs header[token] de la matrice de diffusion
+if(!empty ($apitoken){
+  $options['headers']['X-CSRF-Token'] = $apitoken;
+}
 
 
 try {
