@@ -227,7 +227,7 @@ $options['auth'] = [
 ];
 $options['timeout']= '2';
 $options['body']= $serialized_entity;
-$options['headers']['X-CSRF-Token'] = $apitoken[0];
+$options['headers']['X-CSRF-Token'] = $apitoken;
 
 
 try {
