@@ -204,7 +204,8 @@ $serialized_entity = json_encode([
   //Donnes supplémentaires
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   //Contenu du Node
-  'jsonnode' => [['nodevalue' => $data]],
+  //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL
+  'jsonnode' => $data,
 ]);
 
 $client = \Drupal::httpClient();
