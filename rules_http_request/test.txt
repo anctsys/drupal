@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+
+<?php
+$chaine="{\"nid\":[{\"value\":499}],\"uuid\":[{\"value\":\"3cd0a4c7-d18b-45ab-a5c1-60379f3204b7\"}],\"vid\":[{\"value\":830}],\"langcode\":[{\"value\":\"fr\"}],\"type\":[{\"target_id\":\"card\",\"target_type\":\"node_type\",\"target_uuid\":\"b3beb47d-05d1-48e5-b58e-830685a427d5\"}],\"revision_timestamp\":[{\"value\":\"2021-02-27T09:05:45+00:00\",\"format\":\"Y-m-d\\\\TH:i:sP\"}],\"revision_uid\":[{\"target_id\":1,\"target_type\":\"user\",\"target_uuid\":\"e4ff3e72-362a-4c65-9a41-ca9b7c0820ce\",\"url\":\"\\/user\\/1\"}],\"revision_log\":[],\"status\":[{\"value\":false}],\"uid\":[{\"target_id\":28,\"target_type\":\"user\",\"target_uuid\":\"8a2b39d0-2642-4e8c-8774-88e6fe87e874\",\"url\":\"\\/user\\/28\"}],\"title\":[{\"value\":\"La maison qui parcourait le monde\"}],\"created\":[{\"value\":\"2021-02-22T10:47:11+00:00\",\"format\":\"Y-m-d\\\\TH:i:sP\"}],\"changed\":[{\"value\":\"2021-02-27T09:05:45+00:00\",\"format\":\"Y-m-d\\\\TH:i:sP\"}],\"promote\":[{\"value\":false}],\"sticky\":[{\"value\":false}],\"default_langcode\":[{\"value\":true}],\"revision_translation_affected\":[{\"value\":true}],\"path\":[{\"alias\":\"\",\"pid\":null,\"langcode\":\"fr\"}],\"body\":[{\"value\":\"\\u003Cp\\u003EUn roman jeunesse plein d\\u2019\\u00e9motionsGros coup de c\\u0153ur pour ce roman de Sophie Anderson, publi\\u00e9 par l\\u2019\\u00e9cole des loisirs ! D\\u00e9j\\u00e0, il faut bien reconna\\u00eetre que la couverture de Melissa Castrill\\u00f3n est vraime....\\u003C\\/p\\u003E\\r\\n\",\"format\":\"basic_html\",\"processed\":\"\\u003Cp\\u003EUn roman jeunesse plein d\\u2019\\u00e9motionsGros coup de c\\u0153ur pour ce roman de Sophie Anderson, publi\\u00e9 par l\\u2019\\u00e9cole des loisirs ! D\\u00e9j\\u00e0, il faut bien reconna\\u00eetre que la couverture de Melissa Castrill\\u00f3n est vraime....\\u003C\\/p\\u003E\",\"summary\":\"\"}],\"field_blogcategory\":[{\"value\":\"culture\"}],\"field_blogname\":[{\"value\":\"livres-et-merveilles\"}],\"field_blogplateform\":[{\"value\":\"blogger\"}],\"field_blogthematique\":[{\"value\":\"culture\"}],\"field_feedid\":[{\"value\":\"livres-et-merveilles5102090370633751694\"}],\"field_guid\":[{\"value\":\"http:\\/\\/www.livres-et-merveilles.fr\\/2020\\/10\\/la-maison-qui-parcourait-le-monde.html\"}],\"field_images\":[{\"target_id\":346,\"alt\":\"nom image tete test rrrfllmmfffdrrggfjooorfyyff\",\"title\":\"\",\"width\":595,\"height\":595,\"target_type\":\"file\",\"target_uuid\":\"0636b4a2-78ea-4e25-bf43-4bc0ceebb131\",\"url\":\"https:\\/\\/www.alloblog.com\\/sites\\/default\\/files\\/2021-02\\/f26ab42f3ebeafb10319aa4d37a77e305d35e650.jpg\"}],\"field_likecounter\":[{\"value\":0}],\"field_pubdate\":[{\"value\":\"2021-02-20T11:20:55+01:00\"}],\"field_test\":[],\"field_title\":[{\"value\":\"La maison qui parcourait le monde\"}],\"field_viewedcounter\":[{\"value\":0}]}";
+
+print("Transformation en objet PHP");
+$node_phpobject=json_decode($chaine);
+print_r($node_phpobject);
+
+echo("1-----------------------------------------------------------------------------");
+echo('<br/>');
+//Transformation au format json - Nous avons les caractere d'échappement ICI
+$node_encodetoJSON=json_encode($node_phpobject);
+print_r($node_encodetoJSON);
+
+echo("2-----------------------------------------------------------------------------");
+echo('<br>');
+//Matrice avec les données que nous allons par la suite transforme en JSON
+//Ensuite cette matrcie va être encodée en JSON
+$array_of_data=[
+  'title' => [['value' => "YOYO"]],
+  //'jsonnode' => [['nodevalue' => $node_phpobject]],
+];
+$serialized_entity = json_encode($array_of_data);
+print_r($serialized_entity);
+
+echo("3-----------------------------------------------------------------------------");
+echo('<br>');
+#Transformation d'un objet PHP en array
+$node_phpobject_to_array=get_object_vars ( $node_phpobject );
+print_r($node_phpobject_to_array);
+echo("4-----------------------------------------------------------------------------");
+$completed_array=array_merge ( $array_of_data ,$node_phpobject_to_array);
+print_r($completed_array);
+
+echo("5-----------------------------------------------------------------------------");
+$completed_array_to_json=json_encode($completed_array);
+print_r($completed_array_to_json);
+
+?>
+
+
+</html>
