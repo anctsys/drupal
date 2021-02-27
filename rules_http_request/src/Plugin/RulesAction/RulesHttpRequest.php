@@ -170,7 +170,8 @@ $serializer = \Drupal::service('serializer');
 $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //$messenger->addMessage($data, $messenger::TYPE_WARNING);//CRASH
 //$data = $serializer->serialize($node_body, 'json');
-
+$data2 =json_encode($node_body)
+//$messenger->addMessage($data2, $messenger::TYPE_WARNING);//CRASH
 
 //Message d'erreur
 $messenger = \Drupal::messenger();
@@ -204,8 +205,8 @@ $serialized_entity = json_encode([
   //Donnes supplémentaires
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   //Contenu du Node
-  //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL
-  'jsonnode' => $data,
+  'jsonnode' => [['nodevalue' => $data2]],//ORIGINAL
+  //'jsonnode' => $data,
 ]);
 
 $client = \Drupal::httpClient();
