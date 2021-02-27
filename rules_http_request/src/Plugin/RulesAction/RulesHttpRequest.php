@@ -162,7 +162,18 @@ protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $a
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
+//------------------------------------------------------------------------------------------------
 //TODO Il faut tester si les valeurs passées en parametre sont non nulles. Sinon Crash
+//node_body est un objet php (phpobject)
+#Transformation de l'objet PHP node entity en une array
+$node_body_array=get_object_vars($node_body);
+//Vérification
+$messenger->addMessage(implode ( $node_body_array , "#" ), $messenger::TYPE_WARNING);
+
+
+//------------------------------------------------------------------------------------------------
+
+
 
 
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
@@ -173,7 +184,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //$data2 =json_encode($node_body);//CRASH
 //$messenger->addMessage($data, $messenger::TYPE_WARNING);//CRASH
 //Autre solution
-$xdata=json_encode(json_decode($data)); //CRASH
+$xdata=json_encode(json_decode($data)); //MARCHE
 //$messenger->addMessage($xdata, $messenger::TYPE_WARNING);//CRASH
 
 //$messenger->addMessage(json_decode($data), $messenger::TYPE_WARNING);//CRASH
@@ -210,7 +221,7 @@ $serialized_entity = json_encode([
   //Donnes supplémentaires
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   //Contenu du Node
-  'jsonnode' => [['nodevalue' => $xdata]],//ORIGINAL
+  'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format
   //'jsonnode' => $data,
 ]);
 
