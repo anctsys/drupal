@@ -172,7 +172,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 $xdata=json_decode($data);
 $node_body_array=get_object_vars($xdata);
 //Vérification
-$messenger->addMessage(implode ( $node_body_array , "#" ), $messenger::TYPE_WARNING);
+#$messenger->addMessage(implode ( $node_body_array , "#" ), $messenger::TYPE_WARNING);
 
 
 //------------------------------------------------------------------------------------------------
