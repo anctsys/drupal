@@ -162,23 +162,22 @@ protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $a
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
+/** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
+$serializer = \Drupal::service('serializer');
+$data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //------------------------------------------------------------------------------------------------
 //TODO Il faut tester si les valeurs passées en parametre sont non nulles. Sinon Crash
 //node_body est un objet php (phpobject)
 #Transformation de l'objet PHP node entity en une array
-$node_body_array=get_object_vars($node_body);
+$xdata=json_decode($data);
+$node_body_array=get_object_vars($xdata);
 //Vérification
-//$messenger->addMessage(implode ( $node_body_array , "#" ), $messenger::TYPE_WARNING);
+$messenger->addMessage(implode ( $node_body_array , "#" ), $messenger::TYPE_WARNING);
 
 
 //------------------------------------------------------------------------------------------------
 
 
-
-
-/** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
-$serializer = \Drupal::service('serializer');
-$data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //$messenger->addMessage($data, $messenger::TYPE_WARNING);//CRASH
 //$data = $serializer->serialize($node_body, 'json');
 //$data2 =json_encode($node_body);//CRASH
