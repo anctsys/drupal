@@ -174,7 +174,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 //$messenger->addMessage($data, $messenger::TYPE_WARNING);//CRASH
 //Autre solution
 $xdata=json_encode(json_decode($data)); //CRASH
-$messenger->addMessage($xdata, $messenger::TYPE_WARNING);
+//$messenger->addMessage($xdata, $messenger::TYPE_WARNING);//CRASH
 
 //$messenger->addMessage(json_decode($data), $messenger::TYPE_WARNING);//CRASH
 
@@ -210,7 +210,7 @@ $serialized_entity = json_encode([
   //Donnes supplémentaires
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   //Contenu du Node
-  'jsonnode' => [['nodevalue' => $data]],//ORIGINAL
+  'jsonnode' => [['nodevalue' => $xdata]],//ORIGINAL
   //'jsonnode' => $data,
 ]);
 
