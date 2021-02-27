@@ -158,37 +158,23 @@ class RulesHttpRequest extends RulesActionBase implements ContainerFactoryPlugin
 //TODO Rajouter la gestion des parametres quand on en aura besoin : The request body, formatter as 'param=value&param=value&...'
 //TODO nodetype à remplacer methodetype (post etc)
 //TODO Pour configurer le client http : https://symfony.com/doc/current/http_client.html
+//TODO Il faut tester si les valeurs passées en parametre dans le formulaire sont non nulles. Sinon Crash
+
 protected function doExecute(array $url,$method,$headers, $apiuser, $apipass, $apitoken, $post_title, $extra_data ,$node_body,$max_redirects,$timeout) {
 // Debug message
 drupal_set_message(t("Activating Rules API POST ..."), 'status');
 
+//Serialisation de l'entité => Conversion en une chaine de caractere json
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
 $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
-//------------------------------------------------------------------------------------------------
-//TODO Il faut tester si les valeurs passées en parametre sont non nulles. Sinon Crash
+
 //node_body est un objet php (phpobject)
-#Transformation de l'objet PHP node entity en une array
+//Transformation de l'objet PHP node entity en une array (désérialisation puis extraction des champs de l'objet php)
 $xdata=json_decode($data);
 $node_body_array=get_object_vars($xdata);
-//Vérification
-#$messenger->addMessage(implode ( $node_body_array , "#" ), $messenger::TYPE_WARNING);
 
-
-//------------------------------------------------------------------------------------------------
-
-
-//$messenger->addMessage($data, $messenger::TYPE_WARNING);//CRASH
-//$data = $serializer->serialize($node_body, 'json');
-//$data2 =json_encode($node_body);//CRASH
-//$messenger->addMessage($data, $messenger::TYPE_WARNING);//CRASH
-//Autre solution
-$xdata=json_encode(json_decode($data)); //MARCHE
-//$messenger->addMessage($xdata, $messenger::TYPE_WARNING);//CRASH
-
-//$messenger->addMessage(json_decode($data), $messenger::TYPE_WARNING);//CRASH
-
-//Message d'erreur
+//Gestion des messages
 $messenger = \Drupal::messenger();
 //$messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
@@ -220,8 +206,8 @@ $serialized_entity = json_encode([
   //Donnes supplémentaires
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   //Contenu du Node
-  //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format
-  'jsonnode' => $node_body_array,
+  //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format avec des caractère d'échappement
+  'jsonnode' => $node_body_array, //Marche nickel
 ]);
 
 $client = \Drupal::httpClient();
@@ -254,11 +240,9 @@ $options['auth'] = [
 
 // Timeout.
 $options['timeout'] = empty($timeOut) ? 30 : $timeOut;
-//$options['timeout']= '2';
 
 // Max redirects.
 $options['max_redirects'] = empty($maxRedirect) ? 3 : $maxRedirect;
-
 
 //Formalisation de la matrice de diffusion
 if(!empty($serialized_entity)){
@@ -277,6 +261,10 @@ try {
     $body = $response->getBody()->getContents();
     $messenger->addMessage($body, $messenger::TYPE_WARNING);
     return $body;
+  }else{
+    //Autres code
+    $messenger->addMessage("Error "$code, $messenger::TYPE_ERROR);
+
   }
 }
 catch (RequestException $e) {
