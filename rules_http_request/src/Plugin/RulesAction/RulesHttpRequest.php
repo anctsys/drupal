@@ -168,7 +168,7 @@ drupal_set_message(t("Activating Rules API POST ..."), 'status');
 #Transformation de l'objet PHP node entity en une array
 $node_body_array=get_object_vars($node_body);
 //Vérification
-$messenger->addMessage(implode ( $node_body_array , "#" ), $messenger::TYPE_WARNING);
+//$messenger->addMessage(implode ( $node_body_array , "#" ), $messenger::TYPE_WARNING);
 
 
 //------------------------------------------------------------------------------------------------
