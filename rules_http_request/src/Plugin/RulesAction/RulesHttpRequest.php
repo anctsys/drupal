@@ -263,7 +263,7 @@ try {
     return $body;
   }else{
     //Autres code
-    $messenger->addMessage("Error "$code, $messenger::TYPE_ERROR);
+    $messenger->addMessage("Code : ".$code, $messenger::TYPE_ERROR);
 
   }
 }
