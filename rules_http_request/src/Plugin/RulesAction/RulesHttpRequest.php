@@ -221,8 +221,8 @@ $serialized_entity = json_encode([
   //Donnes supplémentaires
   'extra_data' => [['value' => $extra_data, 'format' => 'full_html']],
   //Contenu du Node
-  'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format
-  //'jsonnode' => $data,
+  //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format
+  'jsonnode' => $node_body_array,
 ]);
 
 $client = \Drupal::httpClient();
