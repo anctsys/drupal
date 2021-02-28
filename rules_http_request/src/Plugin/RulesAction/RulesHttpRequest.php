@@ -181,7 +181,8 @@ $messenger = \Drupal::messenger();
 
 //Extraction de la valeur target_uuid de node_body_array
 //$extract_user_uuid_rev=$node_body_array->["revision_uid"][0]->["target_uuid"];
-$extract_user_uuid_rev=$xdata->["revision_uid"][0]->["target_uuid"];
+$extract_user_uuid_rev=$xdata->["revision_uid"][0];
+//->["target_uuid"];
 
 
 //$messenger->addMessage($extract_user_uuid_rev, $messenger::TYPE_WARNING);
