@@ -181,7 +181,7 @@ $messenger = \Drupal::messenger();
 
 //Extraction de la valeur target_uuid de node_body_array
 $extract_user_uuid_rev=$node_body_array["revision_uid"][0];
-
+$extract_user_uuid_rev_json_object=json_decode($extract_user_uuid_rev);
 
 
 //$messenger->addMessage($extract_user_uuid_rev, $messenger::TYPE_WARNING);
@@ -220,6 +220,7 @@ $serialized_entity = json_encode([
   //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format avec des caractère d'échappement
   'jsonnode' => $node_body_array, //Marche nickel
   'test'=>$extract_user_uuid_rev,
+  'test'=>$extract_user_uuid_rev_json_object->target_uuid,
 ]);
 
 $client = \Drupal::httpClient();
