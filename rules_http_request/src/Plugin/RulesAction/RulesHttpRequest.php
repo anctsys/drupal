@@ -180,7 +180,7 @@ $node_body_array=get_object_vars($xdata);
 $messenger = \Drupal::messenger();
 
 //Extraction de la valeur target_uuid de node_body_array
-$extract_user_uuid_rev=$node_body_array["revision_uid"][0]["target_uuid"];
+$extract_user_uuid_rev=$node_body_array["revision_uid"][0];
 //$messenger->addMessage($extract_user_uuid_rev, $messenger::TYPE_WARNING);
 //$messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
