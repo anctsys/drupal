@@ -174,7 +174,7 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 $xdata=json_decode($data);
 $node_body_array=get_object_vars($xdata);
 
-$test=$node_body_array["nid"];
+$test=$node_body_array["revision_uid"][0];
 //$messenger->addMessage(serialize($t), $messenger::TYPE_WARNING);
 
 //Gestion des messages
