@@ -220,7 +220,7 @@ $serialized_entity = json_encode([
   //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format avec des caractère d'échappement
   'jsonnode' => $node_body_array, //Marche nickel
   'test1'=>$extract_user_uuid_rev,
-  'test2'=>$extract_user_uuid_rev_json_object->target_uuid,
+  'test2'=>$extract_user_uuid_rev_json_object['target_uuid'],
 ]);
 
 $client = \Drupal::httpClient();
