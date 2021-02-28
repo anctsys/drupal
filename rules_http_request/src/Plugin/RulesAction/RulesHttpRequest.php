@@ -180,8 +180,8 @@ $node_body_array=get_object_vars($xdata);
 $messenger = \Drupal::messenger();
 
 //Extraction de la valeur target_uuid de node_body_array
-$extract_user_uuid_rev=$node_body_array["revision_uid"][0];
-$extract_user_uuid_rev_json_object=gettype($extract_user_uuid_rev);
+$extract_user_uuid_rev=$node_body_array["revision_uid"][0];//C'est un objet
+$extract_user_uuid_rev_json_object=$extract_user_uuid_rev->target_uuid;
 
 
 //$messenger->addMessage($extract_user_uuid_rev, $messenger::TYPE_WARNING);
