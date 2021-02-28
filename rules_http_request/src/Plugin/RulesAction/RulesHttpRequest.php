@@ -174,8 +174,8 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 $xdata=json_decode($data);
 $node_body_array=get_object_vars($xdata);
 
-$t=$xdata['nid'][0]['value']
-$messenger->addMessage($t, $messenger::TYPE_WARNING);
+$t=$xdata['nid'][0]['value'];
+$messenger->addMessage(serialize($t), $messenger::TYPE_WARNING);
 
 //Gestion des messages
 $messenger = \Drupal::messenger();
