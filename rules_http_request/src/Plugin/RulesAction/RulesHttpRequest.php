@@ -198,7 +198,7 @@ if (is_array($headers)) {
 }
 
 $user_uid=$node_body_array['uid'][0];
-$messenger->addMessage("User UID : ".$user_uid, $messenger::TYPE_ERROR);
+//$messenger->addMessage($user_uid, $messenger::TYPE_ERROR);
 
 //For test only
 //$messenger->addMessage(implode ( $options , "#" ), $messenger::TYPE_WARNING);
