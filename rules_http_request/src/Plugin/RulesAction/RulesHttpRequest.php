@@ -181,7 +181,7 @@ $messenger = \Drupal::messenger();
 
 //Extraction de la valeur target_uuid de node_body_array
 $extract_user_uuid_rev=$node_body_array["revision_uid"][0]["target_uuid"];
-//$messenger->addMessage(serialize($t), $messenger::TYPE_WARNING);
+$messenger->addMessage($extract_user_uuid_rev, $messenger::TYPE_WARNING);
 //$messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
 //PREPARATION DU HEADER à partir des données du champ RULES -  Entêtes
@@ -216,7 +216,7 @@ $serialized_entity = json_encode([
   //Contenu du Node
   //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format avec des caractère d'échappement
   'jsonnode' => $node_body_array, //Marche nickel
-  'test'=>$test,
+  'test'=>$extract_user_uuid_rev,
 ]);
 
 $client = \Drupal::httpClient();
