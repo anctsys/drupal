@@ -167,6 +167,7 @@ drupal_set_message(t("Activating Rules API POST ..."), 'status');
 //Serialisation de l'entité => Conversion en une chaine de caractere json
 /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface $serializer */
 $serializer = \Drupal::service('serializer');
+//TODO Faire un if node_body
 $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 
 //node_body est un objet php (phpobject)
@@ -180,8 +181,18 @@ $node_body_array=get_object_vars($xdata);
 $messenger = \Drupal::messenger();
 
 //Extraction de la valeur target_uuid de node_body_array
-$extract_user_uuid_rev=$node_body_array["revision_uid"][0];//C'est un objet
-$extract_user_uuid_rev_json_object=$extract_user_uuid_rev->target_uuid;
+try {
+  $extract_user_uuid_rev=$node_body_array["revision_uid"][0];//C'est un objet
+  $extract_user_uuid_rev_json_object=$extract_user_uuid_rev->target_uuid;
+}catch(Exception $e) {
+    \Drupal::logger('my_module')->error($e);
+    $messenger->addMessage("Erreur dans le format du node", $messenger::TYPE_ERROR);
+}
+
+$utilisateur_machine="8a2b39d0-2642-4e8c-8774-88e6fe87e874";
+
+if (strcmp($extract_user_uuid_rev_json_object, $utilisateur_machine) !== 0) {
+    //Les utilisateur sont <> donc on peut lancer le processus
 
 
 //$messenger->addMessage($extract_user_uuid_rev, $messenger::TYPE_WARNING);
@@ -219,8 +230,8 @@ $serialized_entity = json_encode([
   //Contenu du Node
   //'jsonnode' => [['nodevalue' => $data]],//ORIGINAL -->C'est à cause du nouvel encodage en json que l'on a des problème de format avec des caractère d'échappement
   'jsonnode' => $node_body_array, //Marche nickel
-  'test1'=>$extract_user_uuid_rev,
-  'test2'=>$extract_user_uuid_rev_json_object,
+  //'test1'=>$extract_user_uuid_rev,
+  //'test2'=>$extract_user_uuid_rev_json_object,
 ]);
 
 $client = \Drupal::httpClient();
@@ -281,7 +292,10 @@ try {
   }
 }
 catch (RequestException $e) {
-  watchdog_exception('rules_http_request', $e);
+  \Drupal::logger('rules_http_request')->error($e);
+  //watchdog_exception('rules_http_request', $e); //Drupal 7
   }
  }
+
+}//Fin du if de comparaison des utilisateur machine et éditeur
 }
