@@ -181,7 +181,7 @@ $messenger = \Drupal::messenger();
 
 //Extraction de la valeur target_uuid de node_body_array
 $extract_user_uuid_rev=$node_body_array["revision_uid"][0]["target_uuid"];
-$messenger->addMessage($extract_user_uuid_rev, $messenger::TYPE_WARNING);
+//$messenger->addMessage($extract_user_uuid_rev, $messenger::TYPE_WARNING);
 //$messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
 
 //PREPARATION DU HEADER à partir des données du champ RULES -  Entêtes
