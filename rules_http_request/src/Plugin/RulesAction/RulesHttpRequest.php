@@ -190,7 +190,7 @@ try {
 }
 
 $utilisateur_machine="8a2b39d0-2642-4e8c-8774-88e6fe87e874";
-
+//Celapermet de compenser que l'on ne puisse pas utiliser les conditifons de rules sur le roôle de l'utilisateur
 if (strcmp($extract_user_uuid_rev_json_object, $utilisateur_machine) !== 0) {
     //Les utilisateur sont <> donc on peut lancer le processus
 
