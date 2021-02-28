@@ -174,6 +174,8 @@ $data = $serializer->serialize($node_body, 'json', ['plugin_id' => 'entity']);
 $xdata=json_decode($data);
 $node_body_array=get_object_vars($xdata);
 
+
+
 //Gestion des messages
 $messenger = \Drupal::messenger();
 //$messenger->addMessage('Start Rules', $messenger::TYPE_WARNING);
@@ -194,6 +196,9 @@ if (is_array($headers)) {
     }
   }
 }
+
+$user_uid=$node_body_array['uid'][0];
+$messenger->addMessage("User UID : ".$user_uid, $messenger::TYPE_ERROR);
 
 //For test only
 //$messenger->addMessage(implode ( $options , "#" ), $messenger::TYPE_WARNING);
